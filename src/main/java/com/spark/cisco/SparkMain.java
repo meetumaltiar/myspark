@@ -19,21 +19,26 @@ public class SparkMain {
 		JavaSparkContext sc = new JavaSparkContext(conf);
 		JavaRDD<String> lines = sc.textFile("src/main/resources/data.txt");
 
+		@SuppressWarnings("serial")
 		JavaRDD<String> words = lines.flatMap(new FlatMapFunction<String, String>() {
-					@Override
-					public Iterable<String> call(String s) {
-						return Arrays.asList(s.split(" "));
-					}
-				});
+			@Override
+			public Iterable<String> call(String s) {
+				return Arrays.asList(s.split(" "));
+			}
+		});
 
-		JavaPairRDD<String, Integer> ones = words.mapToPair(new PairFunction<String, String, Integer>() {
+		@SuppressWarnings("serial")
+		JavaPairRDD<String, Integer> ones = words
+				.mapToPair(new PairFunction<String, String, Integer>() {
 					@Override
 					public Tuple2<String, Integer> call(String s) {
 						return new Tuple2<String, Integer>(s, 1);
 					}
 				});
 
-		JavaPairRDD<String, Integer> counts = ones.reduceByKey(new Function2<Integer, Integer, Integer>() {
+		@SuppressWarnings("serial")
+		JavaPairRDD<String, Integer> counts = ones
+				.reduceByKey(new Function2<Integer, Integer, Integer>() {
 					@Override
 					public Integer call(Integer i1, Integer i2) {
 						return i1 + i2;

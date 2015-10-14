@@ -4,7 +4,7 @@ scalaVersion := "2.11.7"
 
 version := "1.0"
 
-libraryDependencies += "org.apache.spark" %% "spark-core" % "1.4.1"
+libraryDependencies += "org.apache.spark" %% "spark-core" % "1.5.1"
 
 javacOptions ++= Seq("-source", "1.8", "-target", "1.8", "-Xlint")
 
